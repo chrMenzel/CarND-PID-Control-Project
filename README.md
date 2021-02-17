@@ -96,3 +96,16 @@ still be compilable with cmake and make./
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
+## Discussion
+
+I have finally used the following values for the components P, I and D:
+Kp = 0.1; Ki = 0.0001; Kd = 2.0
+
+The further away the car ist from the trajectory, the harder steers the proportional term Kp.
+Kp alone causes oscilation which leads to jerk. This is why the term Kd is necessary.
+
+The differential term Kd is the resistance if the car is moving too quickly toward the desired trajectory.
+Additionally, Ki is the integral term, adjusted to the bias in the system.
+
+I just did manual tuning. First, I tuned Kp, while Kd and Ki were zero. After I reduced the oscilation to a minimum I tuned the differential term Kd.
+After that, I tuned Ki. This resulted in the values mentioned above.
