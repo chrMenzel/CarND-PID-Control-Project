@@ -55,19 +55,19 @@ int main() {
 
         if (event == "telemetry") {
           // j[1] is the data JSON object
-          double cte = stod(j[1]["cte"].get<string>());
+          double cte = std::stod(j[1]["cte"].get<string>());
           
           pid.UpdateError(cte);
           
           double steer_value = pid.TotalError();
           
-          cout << "CTE: " << cte << " Steering Value: " << steer_value << endl;
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
           msgJson["throttle"] = 0.3;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
-          cout << msg << endl;
+          std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
         }
       } else {
@@ -79,20 +79,20 @@ int main() {
   }); // end h.onMessage
 
   h.onConnection([&h](uWS::WebSocket<uWS::SERVER> ws, uWS::HttpRequest req) {
-    cout << "Connected!!!" << endl;
+    std::cout << "Connected!!!" << std::endl;
   });
 
   h.onDisconnection([&h](uWS::WebSocket<uWS::SERVER> ws, int code, 
                          char *message, size_t length) {
     ws.close();
-    cout << "Disconnected" << endl;
+    std::cout << "Disconnected" << std::endl;
   });
 
   int port = 4567;
   if (h.listen(port)) {
-    cout << "Listening to port " << port << endl;
+    std::cout << "Listening to port " << port << std::endl;
   } else {
-    cerr << "Failed to listen to port" << endl;
+    std::cerr << "Failed to listen to port" << std::endl;
     return -1;
   }
   
